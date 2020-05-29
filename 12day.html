@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        tr{
+            text-align: center;
+        }
+        /*		tbody tr:nth-of-type(odd){
+                    background: #eee;
+                }
+                tbody tr:nth-of-type(even){
+                    background: #333;
+                }*/
+        .toGrey{
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <button id="delAll">全部删除</button>
+    <button id="delSel">选中删除</button>
+    <p><input type="text"><button>搜索</button></p>
+    <!-- table>thead>tr>th*7^^tbody>tr*4>td*7 -->
+    <table border="1" cellspacing="0" width="300">
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="all">全选
+            </th>
+            <th>序列号</th>
+            <th>商品</th>
+            <th>价格</th>
+            <th>产地</th>
+            <th>品牌</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="tb">
+        <tr>
+            <td><input type="checkbox" class="dan"></td>
+            <td>1</td>
+            <td>苹果</td>
+            <td>20元</td>
+            <td>海南</td>
+            <td>000</td>
+            <td><a href="javascript:void(0);" onclick="delOne(this)">删除</a></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"  class="dan"></td>
+            <td>2</td>
+            <td>苹果</td>
+            <td>20元</td>
+            <td>海南</td>
+            <td>000</td>
+            <td><a href="javascript:void(0);" onclick="delOne(this)">删除</a></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"  class="dan"></td>
+            <td>3</td>
+            <td>苹果</td>
+            <td>20元</td>
+            <td>海南</td>
+            <td>000</td>
+            <td><a href="javascript:void(0);" onclick="delOne(this)">删除</a></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="dan"></td>
+            <td>4</td>
+            <td>苹果</td>
+            <td>20元</td>
+            <td>海南</td>
+            <td>000</td>
+            <td><a href="javascript:void(0);" onclick="delOne(this)">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    //单删
+    function delOne(obj){
+        obj.parentElement.parentElement.remove();
+    }
+    //全选、全不选
+    // 1.分析涉及到的元素
+    //2.获取1中涉及的元素
+    var oAll = document.getElementById('all');
+    var aInp = document.getElementsByClassName('dan');
+    //3.绑定事件
+    oAll.onclick=function(){
+        //4.执行程序
+        //全选按钮的checked值，和下面所有复选框的值一致
+        //A)获取全选按钮的checked值
+        var allVal = oAll.checked;
+        // console.log(allVal);
+        //b)下面所有复选框的checked值和全选一致
+        for(var i=0;i<aInp.length;i++){
+            aInp[i].checked = allVal;
+        }
+    }
+    //全部删除
+    // 1.分析涉及到的元素 5
+    //2.获取1中涉及的元素
+    var oDelAll = document.getElementById('delAll');
+    //3.绑定事件
+    oDelAll.onclick=function(){
+        //4.执行程序
+        for(var i=0;i<aInp.length;i++){
+            aInp[i].parentElement.parentElement.remove();
+            i--;
+        }
+
+    }
+    //删除所选
+    // 1.分析涉及到的元素 5
+    //2.获取1中涉及的元素
+    var oDelSel = document.getElementById('delSel');
+    //3.绑定事件
+    oDelSel.onclick=function(){
+        //4.执行程序
+        for(var i=0;i<aInp.length;i++){
+            var bool = aInp[i].checked;
+            // console.log(bool);
+            if(bool){
+                aInp[i].parentElement.parentElement.remove();
+                i--;
+            }
+        }
+    }
+    //隔行换色
+    var oTb = document.getElementById('tb');
+    var aTr = oTb.getElementsByTagName('tr');
+    for(var i=0;i<aTr.length;i++){
+        if(i%2 == 0){
+            // aTr[i].style.background="#eee";
+            aTr[i].className = "toGrey";
+        }
+    }
+    //鼠标移入移出变色
+    var oTb = document.getElementById('tb');
+    var aTr = oTb.getElementsByTagName('tr');
+    for(var i=0;i<aTr.length;i++){
+        if(i%2 == 0){
+            // aTr[i].style.background="#eee";
+            aTr[i].className = "toGrey";
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

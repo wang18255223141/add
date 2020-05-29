@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        tr{
+            text-align: center;
+        }
+        /*tbody tr:nth-of-type(odd){*/
+            /*background: #00AEEF;*/
+        /*}*/
+        /*tbody tr:nth-of-type(even){*/
+            /*background: #33333;*/
+        /*}*/
+        .toPink{
+            background: pink;
+        }
+        .toRed{
+            background: red;
+        }
+        .toGreen{
+            background: green;
+        }
+        .toWrite{
+            background: white;
+        }
+    </style>
+</head>
+<body>
+     <div class="box">
+         <button id="delAll">全部删除</button>
+         <button id="delSee">选中删除</button>
+         <p><input type="text" id="nam" placeholder="请输入商品名称">
+             <button id="search">搜索</button></p>
+         <table border="1" cellspacing="0" width="300">
+             <thead>
+             <tr>
+                 <th>
+                     <input type="checkbox" id="all">全选
+                 </th>
+                 <th>序列号</th>
+                 <th>商品</th>
+                 <th>价格</th>
+                 <th>产地</th>
+                 <th>品牌</th>
+                 <th>操作</th>
+             </tr>
+             </thead>
+             <tbody id="tb">
+             <tr>
+                 <td><input type="checkbox" class="dan"></td>
+                 <td>1</td>
+                 <td calss="nam">苹果</td>
+                 <td>20元</td>
+                 <td>海南</td>
+                 <td>0000</td>
+                 <td><a href="javascript:void (0);" onclick="delOne(this)">删除</a></td>
+             </tr>
+             <tr>
+                 <td><input type="checkbox" class="dan"></td>
+                 <td>1</td>
+                 <td calss="nam">苹果</td>
+                 <td>20元</td>
+                 <td>海南</td>
+                 <td>0000</td>
+                 <td><a href="javascript:void (0);" onclick="delOne(this)">删除</a></td>
+             </tr>
+             <tr>
+                 <td><input type="checkbox" class="dan"></td>
+                 <td>1</td>
+                 <td calss="nam">苹果</td>
+                 <td>20元</td>
+                 <td>海南</td>
+                 <td>0000</td>
+                 <td><a href="javascript:void (0);" onclick="delOne(this)">删除</a></td>
+             </tr>
+             <tr>
+                 <td><input type="checkbox" class="dan"></td>
+                 <td>1</td>
+                 <td calss="nam">香蕉</td>
+                 <td>20元</td>
+                 <td>海南</td>
+                 <td>0000</td>
+                 <td><a href="javascript:void (0);" onclick="delOne(this)">删除</a></td>
+             </tr>
+             <tr>
+                 <td><input type="checkbox" class="dan"></td>
+                 <td>1</td>
+                 <td calss="nam">橘子</td>
+                 <td>20元</td>
+                 <td>海南</td>
+                 <td>0000</td>
+                 <td><a href="javascript:void (0);" onclick="delOne(this)">删除</a></td>
+             </tr>
+             </tbody>
+         </table>
+     </div>
+     <script>
+         function delOne(obj){
+             obj.parentElement.parentElement.remove();
+         }
+         //单删
+         var oAll =document.getElementById('all');
+         var aInp = document.getElementsByClassName('dan');
+         oAll.onclick = function(){
+             var allVal = oAll.checked;
+             for(var i =0;i<aInp.length;i++){
+                 aInp[i].checked = allVal;
+             }
+         }
+
+          var oDelAll = document.getElementById('delAll');
+         oDelAll.onclick = function(){
+             for(var i= 0;i<aInp.length;i++){
+                 aInp[i].parentElement.parentElement.remove();
+                 i--;
+             }
+         }
+
+//         var oDelSel = document.getElementById('delSel');
+//         oDelSel.onclick=function(){
+//             for(var i= 0;i<aInp.length;i++){
+//                 var bool = aInp[i].checked;
+//                 if(bool){
+//                     aInp[i].parentElement.parentElement.remove()
+//                     i--;
+//                 }
+//             }
+//         }
+
+         var oTb = document.getElementById('tb');
+         var oTr = document.getElementsByTagName('tr');
+         function changeColor(){
+             for(var i = 0;i<aTr.length;i++){
+                 if(i%2==0){
+                     aTr[i].className = 'toPink';
+                 }else {
+                     aTr[i].className = 'toWhite';
+                 }
+             }
+         }
+         changeColor();
+         var oldBg = '';
+         for(var i =0;i<aTr.length;i++){
+             aTr[i].index = i;
+             aTr[i].onmouseover = function(){
+                 oldBg = this.className;
+                 this.className = 'toRed';
+             }
+         }
+         for(var i =0 ;i<aTr.length;i++){
+             aTr[i].index = i;
+             aTr[i].onmouseout = function(){
+                this.className = oldBg;
+         }
+             var oInp = document.getElementById('nam');
+             var oSearch = document.getElementById('search');
+             oSearch.onlick = function() {
+                 var inpVal = oInp.value.trim();
+                 if (inpVal = '') {
+                     alert('请输入内容');
+                     changeColor();
+                     return false;
+                 }
+                 for (var j = 0; j < aTr.length; j++) {
+
+                     if (aTr[j].className == 'toGreen') {
+                         aTr[j].className = '';
+                     }
+                 }
+                 changeColor();
+                 var aTd = oTb.getElementsByTagName('td');
+                 for (var i = 0; i < aTd.length; i++) {
+                     // console.log(aTd[i].innerHTML);
+                     var res = aTd[i].innerHTML.indexOf(inpVal);
+                     // console.log(res);
+
+                     if (res != -1) {
+                         aTd[i].parentElement.className = "toGreen";
+                     }
+                 }
+             }
+     </script>
+</body>
+</html>
